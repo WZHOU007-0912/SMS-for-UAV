@@ -1,1 +1,1 @@
-# SMA-for-UAV
+# SMS-for-UAV
