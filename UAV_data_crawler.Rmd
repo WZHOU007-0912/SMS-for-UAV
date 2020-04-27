@@ -1,0 +1,92 @@
+---
+title: "ASRS"
+author: "Wei ZHOU"
+date: "3/25/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(rvest)
+
+url <- "https://www.asias.faa.gov/apex/f?p=100:23:::NO::AP_BRIEF_RPT_VAR:1072844"
+html <- read_html(url)
+html_nodes(html, xpath = "//*[@id='head_1']")
+test = html_table(html)
+
+df = data.frame(test[1])
+df_new = data.frame(test[6])
+df = rbind(df, c("narrative", "test"))%>%rbind(c("narrative", "test"))
+r_na = c("narrative", "test")
+df1 = as.data.frame(t(df))
+
+colnames(df1) = as.vector(t(df1[1,]))
+df1 = df1[-1,]
+as.vector(t(df1[1,]))
+coln
+
+test = data.frame()
+
+df_test = data.frame(c1 = rep(5), c2 = rep(1,6))
+df_test2 = data.frame(c1 = rep(4), c2 = rep(3,2), c3 = rep(8))
+merge(df_test, df_test2)
+
+rbind(test, df1)
+
+html_nodes(html, xpath = "//div/div[3]")[2]%>%html_text()
+html_text(test[2])
+html_nodes(html, xpath = "//*[@id='narr_text']")%>%html_text()
+
+```
+
+```{r}
+library("dplyr")
+
+df = read.csv('/Users/wei/Desktop/GitHub/UAV Data Base/ASRS_REPORTS.csv')
+df = df%>%rename(nbr = "ASRS.Acesn.Nbr")%>%filter(!is.na(nbr))
+start_url = "https://www.asias.faa.gov/apex/f?p=100:23:::NO::AP_BRIEF_RPT_VAR:"
+
+crawler_single = function(url){
+  html <- read_html(url)
+  tb = html_table(html)
+  df = data.frame(tb[1])
+  for(i in 2:6){
+    df = rbind(df, data.frame(tb[i]))
+    #print(paste("tb",str(i)))
+  }
+  len_tb = length(tb)
+  df = rbind(df, data.frame(tb[len_tb]))
+  
+  con_synopsis = html_nodes(html, xpath = "//div/div[3]")[2]%>%html_text()
+  r_synopsis = c("synopsis", con_synopsis)
+  
+  con_na = html_nodes(html, xpath = "//*[@id='narr_text']")%>%html_text()
+  r_na = c("narrative", con_na)
+  df = rbind(df, r_synopsis)%>%rbind(r_na)
+  df = as.data.frame(t(df))
+  colnames(df) = as.vector(t(df[1,]))
+  df[-1,]
+}
+
+step = function(df, start_url){
+  outcome = data.frame()
+  for(i in 1:2){
+    true_url = paste(start_url, df$nbr[i], sep = "")
+    df_case = crawler_single(true_url)
+    print(df_case)
+    outcome = rbind(outcome, df_case)
+    print(outcome)
+    print("page +1")
+  }
+  outcome
+}
+```
+```{r}
+outcome = step(df, start_url)
+
+crawler_single("https://www.asias.faa.gov/apex/f?p=100:23:::NO::AP_BRIEF_RPT_VAR:1389549")
+```
+

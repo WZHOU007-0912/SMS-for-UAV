@@ -1,0 +1,50 @@
+---
+title: "ASN"
+author: "Wei ZHOU"
+date: "3/27/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library("stringr")
+library("xml")
+library("tidyverse")
+
+
+df <- read_xls("ASN database.xls") 
+
+# match_cause = function(df){
+  cause = vector()
+  for (i in 1:nrow(df)) {
+  cause[i] = str_match(df[i, "Narrative:"], regex("(due to )(.*?[.])"))
+  }
+  return(cause)
+}
+
+# df <- df %>% mutate(cause = match_cause(df)) %>% filter(!is.na(cause))
+
+sentence <- as.matrix(df$"Narrative:") 
+sentence <- gsub("\\.","",sentence)
+sentence <- gsub("\\,","",sentence)
+words<-strsplit(sentence," ")
+words.freq<-table(unlist(words)) 
+
+words.freq<-cbind.data.frame(names(words.freq),as.integer(words.freq))
+
+colnames(words.freq)<-c("words","frequency")
+
+words.freq<- words.freq[order(-words.freq$frequency), ]
+
+
+barplot(words.freq$frequency, las = 2, names.arg = words.freq$words,
+        col ="lightblue", main ="Most frequent words",
+        ylab = "Word frequencies")
+write.csv(words.freq,"words.freq.csv")
+
+
+```
+
