@@ -8,8 +8,8 @@
 - Visualization on Most Common Words in Primary Problem  
 **Still, we can see that human factors, procedure and weather are the major factors when diving deeper into analysing the primary problems for UAV mishaps.**   
 **Note that the chart, policy and equipment are also the significant factors we would consider in later fault tree analysis.**
-![]
+![]（https://github.com/WZHOU007-0912/Safety-Management-System-for-UAV/blob/master/Tree%20of%20Most%20Common%20Words%20in%20Primary%20Problem.png）
 - Visualization on Most Common Words in Human Factors  
 **Further, let's explore the factors inside the human factors.**     
 **
-![]
+![]（https://github.com/WZHOU007-0912/Safety-Management-System-for-UAV/blob/master/Tree%20of%20Most%20Common%20Words%20in%20Human%20Factors.png）
