@@ -36,5 +36,6 @@
 **Most of mishaps are detected during in-flight phase and routine inspection.**
 ![](https://github.com/WZHOU007-0912/Safety-Management-System-for-UAV/blob/master/Detect%20Time%20Distribution%20in%20Mishap.png)
 - Mishaps Occuring Light Condition Distribution   
-**95% of mishaps fly/operate under Visual Meteorological Conditions.**
+**95% of mishaps fly/operate under Visual Meteorological Conditions while 86% are in daylight condition.**
+![](https://github.com/WZHOU007-0912/Safety-Management-System-for-UAV/blob/master/Funnel-Chart%20of%20Flight%20Condition%20Distribution.png)
 ![](https://github.com/WZHOU007-0912/Safety-Management-System-for-UAV/blob/master/light%20distribution.png)
