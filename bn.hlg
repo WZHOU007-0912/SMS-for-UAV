@@ -1,0 +1,804 @@
+Tue Jun 23 03:19:32 2020
+
+
+Moral links:
+
+    Marrying adequate and skilled
+    Marrying insufficient and skilled
+    Marrying insufficient and adequate
+    Marrying danger and safe
+    Marrying warning and danger
+    Marrying warning and safe
+    Marrying suggestion and danger
+    Marrying suggestion and warning
+    Marrying suggestion and safe
+
+
+Triangulating prime component with 4 members:
+    skilled, adequate, insufficient, training
+This component is a clique of cost 16
+
+Triangulating prime component with 1 member:
+    awareness
+This component is a clique of cost 2
+
+Triangulating prime component with 5 members:
+    safe, danger, warning, suggestion, workload
+This component is a clique of cost 32
+
+
+Total cost of triangulation for all prime components is 50
+
+
+Elimination sequence:
+
+    workload
+    suggestion
+    warning
+    danger
+    safe
+    training
+    insufficient
+    adequate
+    skilled
+    awareness
+
+
+Cliques:
+
+Clique 3, 5 members, table size = 32:
+    safe, danger, warning, suggestion, workload
+
+Clique 2, 1 member, table size = 2:
+    awareness
+
+Clique 1, 4 members, table size = 16:
+    skilled, adequate, insufficient, training
+
+Total clique table size: 50
+
+
+The junction forest:
+
+Creating junction tree with clique 3 as root ...
+
+Creating junction tree with clique 2 as root ...
+
+Creating junction tree with clique 1 as root ...
+
+
+Assignment of potentials to cliques:
+
+    Node skilled assigned to clique 1
+    Node adequate assigned to clique 1
+    Node insufficient assigned to clique 1
+    Node safe assigned to clique 3
+    Node danger assigned to clique 3
+    Node warning assigned to clique 3
+    Node suggestion assigned to clique 3
+    Node awareness assigned to clique 2
+    Node training assigned to clique 1
+    Node workload assigned to clique 3
+
+
+Checking conditional probability potentials:
+
+    No errors found
+
+
+Beliefs for chance nodes:
+
+    skilled:
+	inappropriate 0.0158416
+	not        0.984158
+
+    adequate:
+	inappropriate 0.038
+	not        0.962
+
+    insufficient:
+	inappropriate 0.06
+	not        0.94
+
+    safe:
+	fatigue    0.01
+	not fatigue 0.99
+
+    danger:
+	fatigue    0.04
+	not fatigue 0.96
+
+    warning:
+	fatigue    0.03
+	not fatigue 0.97
+
+    suggestion:
+	fatigue    0.02
+	not fatigue 0.98
+
+    awareness:
+	aware      0.98
+	not        0.02
+
+    training --> "trained"
+
+    workload --> "workload"
+Tue Jun 23 03:55:08 2020
+
+
+Moral links:
+
+    Marrying obstacle and weather
+    Marrying ADSB and weather
+    Marrying ADSB and obstacle
+    Marrying telemetry and weather
+    Marrying telemetry and obstacle
+    Marrying telemetry and ADSB
+    Marrying action and weather
+    Marrying action and ADSB
+    Marrying action and obstacle
+    Marrying power and weather
+    Marrying power and obstacle
+    Marrying power and telemetry
+    Marrying power and ADSB
+    Marrying power and action
+    Marrying navigation and telemetry
+    Marrying navigation and weather
+    Marrying navigation and ADSB
+    Marrying navigation and obstacle
+    Marrying navigation and power
+    Marrying adequate and skilled
+    Marrying insufficient and skilled
+    Marrying insufficient and adequate
+    Marrying danger and safe
+    Marrying warning and danger
+    Marrying warning and safe
+    Marrying suggestion and danger
+    Marrying suggestion and warning
+    Marrying suggestion and safe
+    Marrying awareness and ADSB
+    Marrying awareness and navigation
+    Marrying awareness and action
+    Marrying training and telemetry
+    Marrying training and navigation
+    Marrying training and ADSB
+    Marrying workload and weather
+    Marrying workload and obstacle
+    Marrying workload and telemetry
+    Marrying workload and power
+
+
+Triangulating prime component with 4 members:
+    skilled, adequate, insufficient, training
+This component is a clique of cost 16
+
+Triangulating prime component with 4 members:
+    ADSB, knowledge, telemetry, training
+This component is a clique of cost 16
+
+Triangulating prime component with 5 members:
+    ADSB, telemetry, action, navigation, training
+This component is a clique of cost 32
+
+Triangulating prime component with 8 members:
+    mishap, weather, obstacle, ADSB, action, power, navigation, awareness
+This component is a clique of cost 256
+
+Triangulating prime component with 8 members:
+    weather, obstacle, ADSB, telemetry, action, power, navigation, awareness
+This component is a clique of cost 256
+
+Triangulating prime component with 5 members:
+    safe, danger, warning, suggestion, workload
+This component is a clique of cost 32
+
+Triangulating prime component with 6 members:
+    weather, obstacle, telemetry, power, awareness, workload
+This component is a clique of cost 64
+
+
+Total cost of triangulation for all prime components is 672
+
+
+Elimination sequence:
+
+    suggestion
+    warning
+    danger
+    safe
+    insufficient
+    adequate
+    skilled
+    workload
+    mishap
+    awareness
+    power
+    obstacle
+    weather
+    navigation
+    action
+    knowledge
+    training
+    telemetry
+    ADSB
+
+
+Cliques:
+
+Clique 7, 4 members, table size = 16:
+    ADSB, telemetry, training, knowledge
+
+Clique 6, 5 members, table size = 32:
+    ADSB, telemetry, training, action, navigation
+
+Clique 5, 8 members, table size = 256:
+    ADSB, telemetry, action, navigation, weather, obstacle, power, awareness
+
+Clique 4, 8 members, table size = 256:
+    ADSB, action, navigation, weather, obstacle, power, awareness, mishap
+
+Clique 3, 6 members, table size = 64:
+    telemetry, weather, obstacle, power, awareness, workload
+
+Clique 2, 5 members, table size = 32:
+    workload, safe, danger, warning, suggestion
+
+Clique 1, 4 members, table size = 16:
+    training, skilled, adequate, insufficient
+
+Total clique table size: 672
+
+
+The junction forest:
+
+Creating junction tree with clique 7 as root ...
+
+Cliques 6 and 7 linked, separator has 3 members and table size = 8:
+    ADSB, telemetry, training
+
+Cliques 5 and 6 linked, separator has 4 members and table size = 16:
+    ADSB, telemetry, action, navigation
+
+Cliques 4 and 5 linked, separator has 7 members and table size = 128:
+    ADSB, action, navigation, weather, obstacle, power, awareness
+
+Cliques 3 and 5 linked, separator has 5 members and table size = 32:
+    telemetry, weather, obstacle, power, awareness
+
+Cliques 2 and 3 linked, separator has 1 member and table size = 2:
+    workload
+
+Cliques 1 and 7 linked, separator has 1 member and table size = 2:
+    training
+
+
+Assignment of potentials to cliques:
+
+    Node mishap assigned to clique 4
+    Node weather assigned to clique 3
+    Node obstacle assigned to clique 3
+    Node ADSB assigned to clique 7
+    Node knowledge assigned to clique 7
+    Node telemetry assigned to clique 7
+    Node action assigned to clique 6
+    Node power assigned to clique 3
+    Node navigation assigned to clique 6
+    Node skilled assigned to clique 1
+    Node adequate assigned to clique 1
+    Node insufficient assigned to clique 1
+    Node safe assigned to clique 2
+    Node danger assigned to clique 2
+    Node warning assigned to clique 2
+    Node suggestion assigned to clique 2
+    Node awareness assigned to clique 3
+    Node training assigned to clique 1
+    Node workload assigned to clique 2
+
+
+Checking conditional probability potentials:
+
+    No errors found
+
+
+Beliefs for chance nodes:
+
+    mishap --> "true"
+
+    weather:
+	bad        0.047
+	good       0.953
+
+    obstacle:
+	fail       2.981e-07
+	not        1
+
+    ADSB:
+	fail       9.635e-07
+	not        0.999999
+
+    knowledge:
+	lack       0.024
+	competent  0.976
+
+    telemetry:
+	fail       4.343e-06
+	not        0.999996
+
+    action:
+	correct    0.976
+	not        0.024
+
+    power:
+	failure    6.47e-06
+	not        0.999994
+
+    navigation:
+	failure    1.452e-06
+	not        0.999999
+
+    skilled:
+	inappropriate 0.0158416
+	not        0.984158
+
+    adequate:
+	inappropriate 0.038
+	not        0.962
+
+    insufficient:
+	inappropriate 0.06
+	not        0.94
+
+    safe:
+	fatigue    0.01
+	not fatigue 0.99
+
+    danger:
+	fatigue    0.04
+	not fatigue 0.96
+
+    warning:
+	fatigue    0.03
+	not fatigue 0.97
+
+    suggestion:
+	fatigue    0.02
+	not fatigue 0.98
+
+    awareness:
+	aware      0.98
+	not        0.02
+
+    training --> "trained"
+
+    workload --> "workload"
+Tue Jun 23 18:28:13 2020
+
+
+Moral links:
+
+    Marrying weather and operation
+    Marrying obstacle and operation
+    Marrying obstacle and weather
+    Marrying ADSB and operation
+    Marrying ADSB and weather
+    Marrying ADSB and obstacle
+    Marrying telemetry and operation
+    Marrying telemetry and weather
+    Marrying telemetry and obstacle
+    Marrying telemetry and ADSB
+    Marrying action and weather
+    Marrying action and ADSB
+    Marrying action and obstacle
+    Marrying power and operation
+    Marrying power and weather
+    Marrying power and obstacle
+    Marrying power and telemetry
+    Marrying power and ADSB
+    Marrying power and action
+    Marrying navigation and operation
+    Marrying navigation and telemetry
+    Marrying navigation and weather
+    Marrying navigation and ADSB
+    Marrying navigation and obstacle
+    Marrying navigation and power
+    Marrying awareness and ADSB
+    Marrying awareness and navigation
+    Marrying awareness and action
+    Marrying inexperienced and operation
+    Marrying inexperienced and telemetry
+    Marrying inexperienced and navigation
+    Marrying inexperienced and ADSB
+    Marrying fatigue and operation
+    Marrying fatigue and weather
+    Marrying fatigue and obstacle
+    Marrying fatigue and telemetry
+    Marrying fatigue and power
+
+
+Triangulating prime component with 8 members:
+    mishap, weather, obstacle, ADSB, action, power, navigation, awareness
+This component is a clique of cost 256
+
+Triangulating prime component with 5 members:
+    operation, ADSB, knowledge, telemetry, inexperienced
+This component is a clique of cost 48
+
+Triangulating prime component with 6 members:
+    operation, ADSB, telemetry, action, navigation, inexperienced
+This component is a clique of cost 96
+
+Triangulating prime component with 9 members:
+    operation, weather, obstacle, ADSB, telemetry, action, power, navigation,
+    awareness
+This component is a clique of cost 512
+
+Triangulating prime component with 7 members:
+    operation, weather, obstacle, telemetry, power, awareness, fatigue
+This component is a clique of cost 256
+
+
+Total cost of triangulation for all prime components is 1168
+
+
+Elimination sequence:
+
+    fatigue
+    mishap
+    awareness
+    power
+    obstacle
+    weather
+    navigation
+    action
+    knowledge
+    inexperienced
+    telemetry
+    ADSB
+    operation
+
+
+Cliques:
+
+Clique 5, 5 members, table size = 48:
+    operation, ADSB, telemetry, inexperienced, knowledge
+
+Clique 4, 6 members, table size = 96:
+    operation, ADSB, telemetry, inexperienced, action, navigation
+
+Clique 3, 9 members, table size = 512:
+    operation, ADSB, telemetry, action, navigation, weather, obstacle, power,
+    awareness
+
+Clique 2, 8 members, table size = 256:
+    ADSB, action, navigation, weather, obstacle, power, awareness, mishap
+
+Clique 1, 7 members, table size = 256:
+    operation, telemetry, weather, obstacle, power, awareness, fatigue
+
+Total clique table size: 1168
+
+
+The junction forest:
+
+Creating junction tree with clique 5 as root ...
+
+Cliques 4 and 5 linked, separator has 4 members and table size = 24:
+    operation, ADSB, telemetry, inexperienced
+
+Cliques 3 and 4 linked, separator has 5 members and table size = 32:
+    operation, ADSB, telemetry, action, navigation
+
+Cliques 2 and 3 linked, separator has 7 members and table size = 128:
+    ADSB, action, navigation, weather, obstacle, power, awareness
+
+Cliques 1 and 3 linked, separator has 6 members and table size = 64:
+    operation, telemetry, weather, obstacle, power, awareness
+
+
+Assignment of potentials to cliques:
+
+    Node operation assigned to clique 5
+    Node mishap assigned to clique 2
+    Node weather assigned to clique 2
+    Node obstacle assigned to clique 2
+    Node ADSB assigned to clique 5
+    Node knowledge assigned to clique 5
+    Node telemetry assigned to clique 5
+    Node action assigned to clique 4
+    Node power assigned to clique 2
+    Node navigation assigned to clique 4
+    Node awareness assigned to clique 1
+    Node inexperienced assigned to clique 5
+    Node fatigue assigned to clique 1
+
+
+Checking conditional probability potentials:
+
+Warning: Conditional distributions for knowledge sum to different values:
+    min = 0.9
+    max = 1
+
+Warning: Conditional distributions for action sum to different values:
+    min = 1
+    max = 1.45
+
+Warning: Conditional distributions for awareness sum to different values:
+    min = 0.9
+    max = 1
+
+    No errors found
+
+
+Beliefs for chance nodes:
+
+    operation:
+	BVLOS      0.5
+	VLOS       0.5
+
+    mishap:
+	true       0.999845
+	false      0.000155186
+
+    weather:
+	bad        0.047
+	good       0.953
+
+    obstacle:
+	fail       2.981e-07
+	not        1
+
+    ADSB:
+	fail       9.635e-07
+	not        0.999999
+
+    knowledge:
+	lack       0.160003
+	competent  0.839997
+
+    telemetry:
+	fail       4.343e-06
+	not        0.999996
+
+    action:
+	correct    0.843922
+	not        0.156078
+
+    power:
+	failure    6.47e-06
+	not        0.999994
+
+    navigation:
+	failure    1.452e-06
+	not        0.999999
+
+    awareness:
+	aware      0.998353
+	not        0.00164749
+
+    inexperienced:
+	insufficient 0.483871
+	adequate   0.306452
+	skilled    0.209677
+
+    fatigue:
+	safe       0.1
+	suggestion 0.2
+	warning    0.3
+	danger     0.4
+Tue Jun 23 19:12:26 2020
+
+
+Moral links:
+
+    Marrying human and internal
+    Marrying weather and internal
+    Marrying weather and human
+    Marrying ADSB and operation
+    Marrying ADSB and obstacle
+    Marrying telemetry and operation
+    Marrying telemetry and ADSB
+    Marrying action and knowledge
+    Marrying power and obstacle
+    Marrying power and ADSB
+    Marrying navigation and operation
+    Marrying navigation and telemetry
+    Marrying navigation and power
+    Marrying navigation and obstacle
+    Marrying navigation and ADSB
+    Marrying awareness and knowledge
+    Marrying awareness and action
+    Marrying inexperienced and operation
+    Marrying inexperienced and telemetry
+    Marrying inexperienced and navigation
+    Marrying inexperienced and ADSB
+    Marrying fatigue and operation
+    Marrying fatigue and telemetry
+
+
+Triangulating prime component with 4 members:
+    internal, human, mishap, weather
+This component is a clique of cost 16
+
+Triangulating prime component with 5 members:
+    internal, obstacle, ADSB, power, navigation
+This component is a clique of cost 32
+
+Triangulating prime component with 10 members:
+    internal, human, operation, ADSB, knowledge, telemetry, action, navigation,
+    awareness, inexperienced
+
+    Using the best greedy heuristic for triangulation
+
+
+Triangulating prime component with 4 members:
+    operation, telemetry, awareness, fatigue
+This component is a clique of cost 32
+
+
+Total cost of triangulation for all prime components is 480
+
+
+Elimination sequence:
+
+    weather
+    mishap
+    fatigue
+    awareness
+    inexperienced
+    action
+    knowledge
+    telemetry
+    operation
+    power
+    obstacle
+    internal
+    navigation
+    ADSB
+    human
+
+
+Cliques:
+
+Clique 7, 4 members, table size = 16:
+    human, ADSB, navigation, internal
+
+Clique 6, 5 members, table size = 32:
+    ADSB, navigation, internal, obstacle, power
+
+Clique 5, 7 members, table size = 128:
+    human, ADSB, navigation, operation, telemetry, knowledge, action
+
+Clique 4, 7 members, table size = 192:
+    ADSB, navigation, operation, telemetry, knowledge, action, inexperienced
+
+Clique 3, 6 members, table size = 64:
+    human, operation, telemetry, knowledge, action, awareness
+
+Clique 2, 4 members, table size = 32:
+    operation, telemetry, awareness, fatigue
+
+Clique 1, 4 members, table size = 16:
+    human, internal, mishap, weather
+
+Total clique table size: 480
+
+
+The junction forest:
+
+Creating junction tree with clique 7 as root ...
+
+Cliques 6 and 7 linked, separator has 3 members and table size = 8:
+    ADSB, navigation, internal
+
+Cliques 5 and 7 linked, separator has 3 members and table size = 8:
+    human, ADSB, navigation
+
+Cliques 4 and 5 linked, separator has 6 members and table size = 64:
+    ADSB, navigation, operation, telemetry, knowledge, action
+
+Cliques 3 and 5 linked, separator has 5 members and table size = 32:
+    human, operation, telemetry, knowledge, action
+
+Cliques 2 and 3 linked, separator has 3 members and table size = 8:
+    operation, telemetry, awareness
+
+Cliques 1 and 7 linked, separator has 2 members and table size = 4:
+    human, internal
+
+
+Assignment of potentials to cliques:
+
+    Node internal assigned to clique 6
+    Node human assigned to clique 3
+    Node operation assigned to clique 2
+    Node mishap assigned to clique 1
+    Node weather assigned to clique 1
+    Node obstacle assigned to clique 6
+    Node ADSB assigned to clique 7
+    Node knowledge assigned to clique 4
+    Node telemetry assigned to clique 2
+    Node action assigned to clique 4
+    Node power assigned to clique 6
+    Node navigation assigned to clique 7
+    Node awareness assigned to clique 2
+    Node inexperienced assigned to clique 4
+    Node fatigue assigned to clique 2
+
+
+Checking conditional probability potentials:
+
+Warning: Conditional distributions for internal sum to different values:
+    min = 0.997
+    max = 1
+
+Warning: Conditional distributions for knowledge sum to different values:
+    min = 0.9
+    max = 1
+
+    No errors found
+
+
+Beliefs for chance nodes:
+
+    internal:
+	fail       8.31344e-06
+	not fail   0.999992
+
+    human:
+	error      0.00433371
+	no error   0.995666
+
+    operation:
+	BVLOS      0.5
+	VLOS       0.5
+
+    mishap:
+	true       0.00442402
+	false      0.995576
+
+    weather:
+	bad        0.047
+	good       0.953
+
+    obstacle:
+	fail       2.981e-07
+	not        1
+
+    ADSB:
+	fail       9.635e-07
+	not        0.999999
+
+    knowledge:
+	lack       0.160003
+	competent  0.839997
+
+    telemetry:
+	fail       4.343e-06
+	not        0.999996
+
+    action:
+	correct    0.893732
+	not        0.106268
+
+    power:
+	failure    6.47e-06
+	not        0.999994
+
+    navigation:
+	failure    1.452e-06
+	not        0.999999
+
+    awareness:
+	aware      0.959996
+	not        0.0400035
+
+    inexperienced:
+	insufficient 0.483871
+	adequate   0.306452
+	skilled    0.209677
+
+    fatigue:
+	safe       0.1
+	suggestion 0.2
+	warning    0.3
+	danger     0.4

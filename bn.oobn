@@ -1,0 +1,430 @@
+class bn
+{
+    inputs = ();
+    outputs = ();
+    node_size = (80 40);
+    HR_DBN_Num_Slices = "5";
+    HR_Desc = "";
+    HR_OOBN_CheckConsistency = "1";
+    HR_OOBN_FitExpand = "1";
+    HR_Zoom_ZoomFactor = "100";
+    HR_Groups_GroupColors = "";
+    HR_Groups_GroupNames = "";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Utility_Link = "63";
+    HR_Probabilistic_Link = "63";
+    HR_Functional_Link = "63";
+    HR_Binding_Link = "63";
+    HR_Information_Arc = "63";
+    HR_Color_Interface = "21";
+    HR_Color_Instance = "0";
+    HR_Color_DiscreteFunction = "5";
+    HR_Color_Function = "4";
+    HR_Color_Utility = "36";
+    HR_Color_Decision = "17";
+    HR_Color_ContinuousChance = "48";
+    HR_Color_DiscreteChance = "16";
+    HR_Monitor_InitSD = "2";
+    HR_Monitor_Utility_Arrange = "0";
+    HR_Monitor_Mean_Variance = "1";
+    HR_Monitor_Chance_Utility = "1";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Compile_MaxMinimalSeparators = "100000";
+    HR_Compile_ApproxEpsilon = "1.0E-5";
+    HR_Compile_Approximate = "0";
+    HR_Compile_SaveToMemory = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_TriangMethod = "0";
+    HR_Propagate_AutoNormal = "1";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_Auto = "1";
+    HR_Font_Italic = "0";
+    HR_Font_Weight = "400";
+    HR_Font_Size = "-12";
+    HR_Font_Name = "com.apple.laf.AquaFonts$DerivedUIResourceFont[family=Lucida Grande,name=Lucida Grande,style=plain,size=13]";
+    HR_Grid_GridShow = "0";
+    HR_Grid_GridSnap = "0";
+    HR_Grid_Y = "40";
+    HR_Grid_X = "40";
+
+    node internal
+    {
+	label = "uav state";
+	position = (335 336);
+	states = ("fail" "not fail");
+	HR_LinkGroup = "[mishap:0]";
+	HR_LinkMode = "[mishap:0]";
+	HR_Group = "0";
+	HR_Desc = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+    }
+
+    node human
+    {
+	label = "human factor";
+	position = (543 439);
+	states = ("error" "no error");
+	HR_LinkGroup = "[mishap:0]";
+	HR_LinkMode = "[mishap:0]";
+	HR_NodeSize = "(103, 53)";
+	HR_Group = "0";
+	HR_Desc = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+    }
+
+    node operation
+    {
+	label = "operation rule";
+	position = (441 64);
+	states = ("BVLOS" "VLOS");
+	HR_LinkControlPoints = "";
+	HR_LinkGroup = "[awareness:0][action:0][knowledge:0]";
+	HR_LinkMode = "[awareness:0][action:0][knowledge:0]";
+	HR_NodeSize = "(114, 49)";
+	HR_Group = "0";
+	HR_Desc = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+    }
+
+    node mishap
+    {
+	label = "mishap";
+	position = (417 513);
+	states = ("true" "false");
+	HR_Group = "0";
+	HR_Desc = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+    }
+
+    node weather
+    {
+	label = "weather";
+	position = (557 73);
+	states = ("bad" "good");
+	HR_LinkControlPoints = "";
+	HR_LinkGroup = "[mishap:0]";
+	HR_LinkMode = "[mishap:0]";
+	HR_Group = "0";
+	HR_Desc = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+    }
+
+    node obstacle
+    {
+	label = "obstacle sense";
+	position = (761 145);
+	states = ("fail" "not");
+	HR_LinkControlPoints = "";
+	HR_LinkGroup = "[internal:0]";
+	HR_LinkMode = "[internal:0]";
+	HR_NodeSize = "(119, 35)";
+	HR_Group = "0";
+	HR_Desc = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+    }
+
+    node ADSB
+    {
+	label = "ADS-B";
+	position = (784 197);
+	states = ("fail" "not");
+	HR_LinkControlPoints = "";
+	HR_LinkGroup = "[knowledge:0][internal:0]";
+	HR_LinkMode = "[knowledge:0][internal:0]";
+	HR_Group = "0";
+	HR_Desc = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+    }
+
+    node knowledge
+    {
+	label = "knowledge";
+	position = (722 323);
+	states = ("lack" "competent");
+	HR_LinkGroup = "[human:0]";
+	HR_LinkMode = "[human:0]";
+	HR_NodeSize = "(163, 58)";
+	HR_Group = "0";
+	HR_Desc = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+    }
+
+    node telemetry
+    {
+	label = "telemetry";
+	position = (319 53);
+	states = ("fail" "not");
+	HR_LinkGroup = "[action:0][telemetry:0][awareness:0][knowledge:0]";
+	HR_LinkMode = "[action:0][telemetry:0][awareness:0][knowledge:0]";
+	HR_Group = "0";
+	HR_Desc = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+    }
+
+    node action
+    {
+	label = "action";
+	position = (194 355);
+	states = ("correct" "not");
+	HR_LinkControlPoints = "";
+	HR_LinkGroup = "[human:0]";
+	HR_LinkMode = "[human:0]";
+	HR_Group = "0";
+	HR_Desc = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+    }
+
+    node power
+    {
+	label = "power system failure";
+	position = (156 149);
+	states = ("failure" "not");
+	HR_LinkControlPoints = "";
+	HR_NodeSize = "(192, 62)";
+	HR_LinkGroup = "[internal:0]";
+	HR_LinkMode = "[internal:0]";
+	HR_Group = "0";
+	HR_Desc = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+    }
+
+    node navigation
+    {
+	label = "navigation";
+	position = (130 217);
+	states = ("failure" "not");
+	HR_LinkControlPoints = "";
+	HR_LinkGroup = "[action:0][internal:0]";
+	HR_LinkMode = "[action:0][internal:0]";
+	HR_Group = "0";
+	HR_Desc = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+    }
+
+    node awareness
+    {
+	label = "awareness";
+	position = (430 255);
+	states = ("aware" "not");
+	HR_LinkControlPoints = "";
+	HR_LinkGroup = "[human:0]";
+	HR_LinkMode = "[human:0]";
+	HR_Group = "0";
+	HR_Desc = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+    }
+
+    node inexperienced
+    {
+	label = "inexperienced";
+	position = (680 56);
+	states = ("insufficient" "adequate" "skilled");
+	HR_NodeSize = "(148, 57)";
+	HR_State_2 = "";
+	HR_LinkControlPoints = "";
+	HR_LinkGroup = "[action:0][knowledge:0]";
+	HR_LinkMode = "[action:0][knowledge:0]";
+	HR_Group = "0";
+	HR_Desc = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+    }
+
+    node fatigue
+    {
+	label = "fatigue";
+	position = (175 60);
+	states = ("safe" "suggestion" "warning" "danger");
+	HR_State_3 = "";
+	HR_State_2 = "";
+	HR_LinkControlPoints = "";
+	HR_LinkGroup = "[awareness:0]";
+	HR_LinkMode = "[awareness:0]";
+	HR_NodeSize = "(146, 60)";
+	HR_Group = "0";
+	HR_Desc = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+    }
+
+    potential (internal | power obstacle ADSB navigation)
+    {
+	data = ((((( 1 0 )	%  power=failure  obstacle=fail  ADSB=fail  navigation=failure
+		   ( 1 0 ))	%  power=failure  obstacle=fail  ADSB=fail  navigation=not
+		  (( 1 0 )	%  power=failure  obstacle=fail  ADSB=not  navigation=failure
+		   ( 1 0 )))	%  power=failure  obstacle=fail  ADSB=not  navigation=not
+		 ((( 1 0 )	%  power=failure  obstacle=not  ADSB=fail  navigation=failure
+		   ( 1 0 ))	%  power=failure  obstacle=not  ADSB=fail  navigation=not
+		  (( 1 0 )	%  power=failure  obstacle=not  ADSB=not  navigation=failure
+		   ( 1 0 ))))	%  power=failure  obstacle=not  ADSB=not  navigation=not
+		(((( 0.999 0.001 )	%  power=not  obstacle=fail  ADSB=fail  navigation=failure
+		   ( 0.998 0.002 ))	%  power=not  obstacle=fail  ADSB=fail  navigation=not
+		  (( 0.997 0.003 )	%  power=not  obstacle=fail  ADSB=not  navigation=failure
+		   ( 0.996 0.001 )))	%  power=not  obstacle=fail  ADSB=not  navigation=not
+		 ((( 0.9 0.1 )	%  power=not  obstacle=not  ADSB=fail  navigation=failure
+		   ( 0.7 0.3 ))	%  power=not  obstacle=not  ADSB=fail  navigation=not
+		  (( 0.6 0.4 )	%  power=not  obstacle=not  ADSB=not  navigation=failure
+		   ( 0 1 )))));	%  power=not  obstacle=not  ADSB=not  navigation=not
+    }
+
+    potential (human | knowledge action awareness)
+    {
+	data = (((( 0.0002 0.9998 )	%  knowledge=lack  action=correct  awareness=aware
+		  ( 0.0003 0.9997 ))	%  knowledge=lack  action=correct  awareness=not
+		 (( 0.005 0.995 )	%  knowledge=lack  action=not  awareness=aware
+		  ( 0.99 0.01 )))	%  knowledge=lack  action=not  awareness=not
+		((( 1E-05 0.99999 )	%  knowledge=competent  action=correct  awareness=aware
+		  ( 0.0001 0.9999 ))	%  knowledge=competent  action=correct  awareness=not
+		 (( 0.0002 0.9998 )	%  knowledge=competent  action=not  awareness=aware
+		  ( 0.98 0.02 ))));	%  knowledge=competent  action=not  awareness=not
+    }
+
+    potential (operation)
+    {
+	data = ( 1 1 );
+    }
+
+    potential (mishap | internal human weather)
+    {
+	data = (((( 1 0 )	%  internal=fail  human=error  weather=bad
+		  ( 1 0 ))	%  internal=fail  human=error  weather=good
+		 (( 0.99999 1E-05 )	%  internal=fail  human=no error  weather=bad
+		  ( 0.99998 2E-05 )))	%  internal=fail  human=no error  weather=good
+		((( 0.9999 0.0001 )	%  internal=not fail  human=error  weather=bad
+		  ( 0.0001 0.9999 ))	%  internal=not fail  human=error  weather=good
+		 (( 0.09 0.91 )	%  internal=not fail  human=no error  weather=bad
+		  ( 0 1 ))));	%  internal=not fail  human=no error  weather=good
+    }
+
+    potential (weather)
+    {
+	data = ( 0.047 0.953 );
+    }
+
+    potential (obstacle)
+    {
+	data = ( 2.981E-07 1 );
+    }
+
+    potential (ADSB)
+    {
+	data = ( 9.635E-07 0.999999 );
+    }
+
+    potential (knowledge | operation ADSB inexperienced telemetry)
+    {
+	data = ((((( 1 0 )	%  operation=BVLOS  ADSB=fail  inexperienced=insufficient  telemetry=fail
+		   ( 0.99 0.01 ))	%  operation=BVLOS  ADSB=fail  inexperienced=insufficient  telemetry=not
+		  (( 0.99 0.01 )	%  operation=BVLOS  ADSB=fail  inexperienced=adequate  telemetry=fail
+		   ( 0.8 0.2 ))	%  operation=BVLOS  ADSB=fail  inexperienced=adequate  telemetry=not
+		  (( 0.95 0.05 )	%  operation=BVLOS  ADSB=fail  inexperienced=skilled  telemetry=fail
+		   ( 0.85 0.05 )))	%  operation=BVLOS  ADSB=fail  inexperienced=skilled  telemetry=not
+		 ((( 0.6 0.4 )	%  operation=BVLOS  ADSB=not  inexperienced=insufficient  telemetry=fail
+		   ( 0.4 0.6 ))	%  operation=BVLOS  ADSB=not  inexperienced=insufficient  telemetry=not
+		  (( 0.55 0.45 )	%  operation=BVLOS  ADSB=not  inexperienced=adequate  telemetry=fail
+		   ( 0.15 0.85 ))	%  operation=BVLOS  ADSB=not  inexperienced=adequate  telemetry=not
+		  (( 0.5 0.5 )	%  operation=BVLOS  ADSB=not  inexperienced=skilled  telemetry=fail
+		   ( 0.05 0.95 ))))	%  operation=BVLOS  ADSB=not  inexperienced=skilled  telemetry=not
+		(((( 0.9 0.1 )	%  operation=VLOS  ADSB=fail  inexperienced=insufficient  telemetry=fail
+		   ( 0.5 0.5 ))	%  operation=VLOS  ADSB=fail  inexperienced=insufficient  telemetry=not
+		  (( 0.8 0.2 )	%  operation=VLOS  ADSB=fail  inexperienced=adequate  telemetry=fail
+		   ( 0.4 0.6 ))	%  operation=VLOS  ADSB=fail  inexperienced=adequate  telemetry=not
+		  (( 0.7 0.3 )	%  operation=VLOS  ADSB=fail  inexperienced=skilled  telemetry=fail
+		   ( 0.6 0.4 )))	%  operation=VLOS  ADSB=fail  inexperienced=skilled  telemetry=not
+		 ((( 0.85 0.15 )	%  operation=VLOS  ADSB=not  inexperienced=insufficient  telemetry=fail
+		   ( 0.1 0.9 ))	%  operation=VLOS  ADSB=not  inexperienced=insufficient  telemetry=not
+		  (( 0.6 0.4 )	%  operation=VLOS  ADSB=not  inexperienced=adequate  telemetry=fail
+		   ( 0.05 0.95 ))	%  operation=VLOS  ADSB=not  inexperienced=adequate  telemetry=not
+		  (( 0.4 0.6 )	%  operation=VLOS  ADSB=not  inexperienced=skilled  telemetry=fail
+		   ( 0.03 0.97 )))));	%  operation=VLOS  ADSB=not  inexperienced=skilled  telemetry=not
+    }
+
+    potential (telemetry)
+    {
+	data = ( 4.343E-06 0.999996 );
+    }
+
+    potential (action | operation telemetry inexperienced navigation)
+    {
+	data = ((((( 0 1 )	%  operation=BVLOS  telemetry=fail  inexperienced=insufficient  navigation=failure
+		   ( 0.001 0.999 ))	%  operation=BVLOS  telemetry=fail  inexperienced=insufficient  navigation=not
+		  (( 0.001 0.999 )	%  operation=BVLOS  telemetry=fail  inexperienced=adequate  navigation=failure
+		   ( 0.002 0.998 ))	%  operation=BVLOS  telemetry=fail  inexperienced=adequate  navigation=not
+		  (( 0.002 0.998 )	%  operation=BVLOS  telemetry=fail  inexperienced=skilled  navigation=failure
+		   ( 0.003 0.997 )))	%  operation=BVLOS  telemetry=fail  inexperienced=skilled  navigation=not
+		 ((( 0.8 0.2 )	%  operation=BVLOS  telemetry=not  inexperienced=insufficient  navigation=failure
+		   ( 0.85 0.15 ))	%  operation=BVLOS  telemetry=not  inexperienced=insufficient  navigation=not
+		  (( 0.85 0.15 )	%  operation=BVLOS  telemetry=not  inexperienced=adequate  navigation=failure
+		   ( 0.9 0.1 ))	%  operation=BVLOS  telemetry=not  inexperienced=adequate  navigation=not
+		  (( 0.9 0.1 )	%  operation=BVLOS  telemetry=not  inexperienced=skilled  navigation=failure
+		   ( 0.995 0.005 ))))	%  operation=BVLOS  telemetry=not  inexperienced=skilled  navigation=not
+		(((( 0.7 0.3 )	%  operation=VLOS  telemetry=fail  inexperienced=insufficient  navigation=failure
+		   ( 0.75 0.25 ))	%  operation=VLOS  telemetry=fail  inexperienced=insufficient  navigation=not
+		  (( 0.8 0.2 )	%  operation=VLOS  telemetry=fail  inexperienced=adequate  navigation=failure
+		   ( 0.85 0.15 ))	%  operation=VLOS  telemetry=fail  inexperienced=adequate  navigation=not
+		  (( 0.9 0.1 )	%  operation=VLOS  telemetry=fail  inexperienced=skilled  navigation=failure
+		   ( 0.95 0.05 )))	%  operation=VLOS  telemetry=fail  inexperienced=skilled  navigation=not
+		 ((( 0.75 0.25 )	%  operation=VLOS  telemetry=not  inexperienced=insufficient  navigation=failure
+		   ( 0.85 0.15 ))	%  operation=VLOS  telemetry=not  inexperienced=insufficient  navigation=not
+		  (( 0.86 0.14 )	%  operation=VLOS  telemetry=not  inexperienced=adequate  navigation=failure
+		   ( 0.9 0.1 ))	%  operation=VLOS  telemetry=not  inexperienced=adequate  navigation=not
+		  (( 0.93 0.07 )	%  operation=VLOS  telemetry=not  inexperienced=skilled  navigation=failure
+		   ( 0.976 0.024 )))));	%  operation=VLOS  telemetry=not  inexperienced=skilled  navigation=not
+    }
+
+    potential (power)
+    {
+	data = ( 6.47E-06 0.999994 );
+    }
+
+    potential (navigation)
+    {
+	data = ( 1.452E-06 0.999999 );
+    }
+
+    potential (awareness | operation telemetry fatigue)
+    {
+	data = (((( 0 1 )	%  operation=BVLOS  telemetry=fail  fatigue=safe
+		  ( 0 1 )	%  operation=BVLOS  telemetry=fail  fatigue=suggestion
+		  ( 0 1 )	%  operation=BVLOS  telemetry=fail  fatigue=warning
+		  ( 0 1 ))	%  operation=BVLOS  telemetry=fail  fatigue=danger
+		 (( 0.98 0.02 )	%  operation=BVLOS  telemetry=not  fatigue=safe
+		  ( 0.97 0.03 )	%  operation=BVLOS  telemetry=not  fatigue=suggestion
+		  ( 0.96 0.04 )	%  operation=BVLOS  telemetry=not  fatigue=warning
+		  ( 0.95 0.05 )))	%  operation=BVLOS  telemetry=not  fatigue=danger
+		((( 0.5 0.5 )	%  operation=VLOS  telemetry=fail  fatigue=safe
+		  ( 0.4 0.6 )	%  operation=VLOS  telemetry=fail  fatigue=suggestion
+		  ( 0.3 0.7 )	%  operation=VLOS  telemetry=fail  fatigue=warning
+		  ( 0.2 0.8 ))	%  operation=VLOS  telemetry=fail  fatigue=danger
+		 (( 0.98 0.02 )	%  operation=VLOS  telemetry=not  fatigue=safe
+		  ( 0.97 0.03 )	%  operation=VLOS  telemetry=not  fatigue=suggestion
+		  ( 0.96 0.04 )	%  operation=VLOS  telemetry=not  fatigue=warning
+		  ( 0.95 0.05 ))));	%  operation=VLOS  telemetry=not  fatigue=danger
+    }
+
+    potential (inexperienced)
+    {
+	data = ( 0.06 0.038 0.026 );
+    }
+
+    potential (fatigue)
+    {
+	data = ( 0.01 0.02 0.03 0.04 );
+    }
+} % class bn
