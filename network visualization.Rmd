@@ -1,0 +1,93 @@
+---
+title: "vis"
+author: "ZHOU WEI"
+date: "7/10/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(visNetwork)
+library(bnlearn)
+```
+
+
+```{r}
+id = c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15)
+label = c(
+  "Workload P(WL)", 
+  "Qualification P(QL)",
+  "Operation Rule P(RL)", 
+  "Telemetry P(TL)",
+  "Obstacle Sensing P(OB)",
+  "GNSS P(GN)",
+  "Power Plant P(PL)",
+  "Situational Awareness P(SA|WL,QL)",
+  "External Environment P(EE|SA)",
+  "Human Factor P(HF|SA,TL,RL)",
+  "UAV Internal State P(US|TL,OB,PL,GN)",
+  "UAV mishap P(MS|HF,EE,US)",
+  "Human Factor",
+  "UAV Internal system",
+  "External Environment")
+
+color = c("#BEBADA","#BEBADA","#BEBADA","#8DD3C7","#8DD3C7",
+          "#8DD3C7","#8DD3C7","#BEBADA","#FDB462","#BEBADA",
+          "#8DD3C7","#FB8072","#BEBADA","#8DD3C7","#FDB462")
+
+level = c(1,1,1,1,1,1,1,2,3,3,3,4,2,3,4)
+  
+nodes <- data.frame(id, level,label, color)
+
+
+
+edges <- data.frame(
+  from = c(1,2,3,4,4,5,6,7,8,8,9,10,11),
+  to = c(8,8,10,10,11,11,11,11,9,10,12,12,12)
+)
+  
+
+
+
+```
+
+```{r}
+visNetwork(nodes, edges) %>% 
+  visNodes(shape = "ellipse") %>% 
+  visEdges(arrows = "to", smooth = list(enabled = FALSE)) %>%
+  visHierarchicalLayout(levelSeparation = 160) %>% 
+  visExport(type = "png", name = "export-network",
+            float = "left", label = "Save network", background = "white", style= "")
+ 
+```
+
+```{r}
+brewer.pal(n = 8, name = "Set3")  
+```
+
+```{r}
+display.brewer.pal(n = 8, name = 'Set3')
+```
+
+
+```{r}
+risk.dag = empty.graph(nodes = c(" Trigger "," Risk event ", " Consequence "))
+
+risk.dag = set.arc(risk.dag, from = " Trigger ", to = " Risk event ")
+risk.dag = set.arc(risk.dag, from = " Risk event ", to = " Consequence ")
+
+arc.set = matrix(c(" Trigger ", " Risk event ",
+                 " Risk event "," Consequence "),
+byrow = TRUE, ncol = 2,
+dimnames = list(NULL, c("from", "to")))
+
+arcs(risk.dag) = arc.set
+hlight <- list(nodes = nodes(risk.dag), arcs = arcs(risk.dag),
+               col = "black", textCol = "black")
+pp <- graphviz.plot(risk.dag, 
+                    highlight = hlight, shape = "ellipse")
+```
+

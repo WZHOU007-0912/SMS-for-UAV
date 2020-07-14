@@ -1,0 +1,339 @@
+---
+title: "BN network"
+author: "ZHOU WEI"
+date: "7/4/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(visNetwork)
+library(bnlearn)
+library(rbmn)
+library(Rgraphviz)
+library(gRain)
+```
+
+# Building the model
+## Structure learning
+```{r}
+
+mishap.dag = empty.graph(nodes = c("QL","WL", "RL", "SA","TL","OS","GN","PL","EE","HF","US","MS"))
+# RL: operation rule
+# WL: workload
+# QL: qualification
+# TL: telemetry
+# NG: navigation
+# PL: power plant
+# OS: obstacle sensing
+# US: uav
+# WT: weather
+# HF: human factor
+# MS: mishap
+
+mishap.dag = set.arc(mishap.dag, from = "TL", to = "US")
+mishap.dag = set.arc(mishap.dag, from = "OS", to = "US")
+mishap.dag = set.arc(mishap.dag, from = "PL", to = "US")
+mishap.dag = set.arc(mishap.dag, from = "GN", to = "US")
+mishap.dag = set.arc(mishap.dag, from = "WL", to = "SA")
+mishap.dag = set.arc(mishap.dag, from = "QL", to = "SA")
+mishap.dag = set.arc(mishap.dag, from = "RL", to = "HF")
+mishap.dag = set.arc(mishap.dag, from = "TL", to = "HF")
+mishap.dag = set.arc(mishap.dag, from = "SA", to = "EE")
+mishap.dag = set.arc(mishap.dag, from = "SA", to = "HF")
+mishap.dag = set.arc(mishap.dag, from = "EE", to = "MS")
+mishap.dag = set.arc(mishap.dag, from = "HF", to = "MS")
+mishap.dag = set.arc(mishap.dag, from = "US", to = "MS")
+
+arc.set = matrix(c(
+  "TL", "US",
+  "OS", "US",
+  "PL", "US",
+  "GN", "US",
+  "SA", "EE",
+  "WL", "SA",
+  "QL", "SA",
+  "RL", "HF",
+  "TL", "HF",
+  "SA", "HF",
+  "EE", "MS",
+  "HF", "MS",
+  "US", "MS"),
+  byrow = TRUE, ncol = 2,
+  dimnames = list(NULL, c("from", "to")))
+
+arcs(mishap.dag) = arc.set
+
+```
+
+
+```{r}
+mishap.dag
+```
+
+
+
+## Parameters learning
+```{r}
+RL.lv = c("BLOVS", "VLOS")
+WL.lv = c("danger","warning","suggestion","safe")
+QL.lv = c("basic","adequate","skilled")
+TL.lv = c("fail","pass")
+GN.lv = c("fail","pass")
+PL.lv = c("fail","pass")
+OS.lv = c("fail","pass")
+EE.lv = c("bad","good")
+SA.lv = c("lack","pass")
+US.lv = c("fail","pass")
+HF.lv = c("fail","pass")
+MS.lv = c("fail","pass")
+
+
+RL.prob = array(c(0.5, 0.5), dim = 2, dimnames = list(RL = RL.lv))
+WL.prob = array(c(0.4, 0.3, 0.2, 0.1), dim = 4, dimnames = list(WL = WL.lv))
+QL.prob = array(c(0.6, 0.3, 0.1), dim = 3, dimnames = list(QL = QL.lv))
+TL.prob = array(c(0.004, 0.996), dim = 2, dimnames = list(TL = TL.lv))
+GN.prob = array(c(0.001, 0.999), dim = 2, dimnames = list(GN = GN.lv))
+PL.prob = array(c(0.006, 0.994), dim = 2, dimnames = list(PL = PL.lv))
+OS.prob = array(c(0.001, 0.999), dim = 2, dimnames = list(OS = OS.lv))
+EE.prob = array(c(0.964, 0.036, 0.01, 0.99), dim = c(2,2), dimnames = list(EE = EE.lv, SA = SA.lv))
+
+SA.prob = array(c(0.9999, 0.0001,
+                  0.999, 0.001,
+                  0.75, 0.25,
+                  0.4, 0.6,
+                  0.999, 0.001,
+                  0.99, 0.01,
+                  0.7, 0.3,
+                  0.35, 0.65,
+                  0.99, 0.01,
+                  0.9, 0.1,
+                  0.65, 0.35, 
+                  0.2, 0.8), dim = c(2, 4, 3),
+                dimnames = list(SA = SA.lv, WL = WL.lv, QL = QL.lv))
+
+HF.prob = array(c(0.999, 0.001,
+                  0.55, 0.45,
+                  0.75, 0.25,
+                  0.35, 0.65,
+                  0.9999, 0.0001,
+                  0.85, 0.15,
+                  0.95, 0.05,
+                  0.38, 0.62),
+                dim = c(2, 2, 2, 2),
+                dimnames = list(HF = HF.lv, SA = SA.lv, 
+                                TL = TL.lv,RL = RL.lv))
+
+US.prob = array(c(1, 0,
+                  1, 0,
+                  1, 0,
+                  1, 0,
+                  0.99, 0.01,
+                  0.95, 0.05,
+                  0.93, 0.07,
+                  0.87, 0.13,
+                  1, 0,
+                  1, 0,
+                  1, 0,
+                  1, 0,
+                  0.98, 0.02,
+                  0.72, 0.28,
+                  0.65, 0.35,
+                  0, 1), dim = c(2, 2, 2, 2, 2),
+                dimnames = list(US = US.lv, TL = TL.lv,
+                                OS = OS.lv, PL = PL.lv,
+                                GN = GN.lv))
+
+
+MS.prob = array(c(1, 0,
+                  0.9999, 0.0001,
+                  1, 0,
+                  0.999, 0.001,
+                  0.9998, 0.0002,
+                  0.02, 0.98,
+                  0.35, 0.65,
+                  0, 1),
+                dim = c(2,2,2,2),
+                dimnames = list(MS = MS.lv, HF = HF.lv,
+                                EE = EE.lv, US = US.lv))
+
+
+CPT = list(WL = WL.prob, QL = QL.prob,
+           RL = RL.prob, SA = SA.prob,
+           EE = EE.prob, HF = HF.prob,
+           TL = TL.prob, GN = GN.prob,
+           PL = PL.prob, OS = OS.prob,
+           US = US.prob, MS = MS.prob)
+
+```
+
+```{r}
+CPT
+```
+
+# Inference 
+
+```{r}
+mishap = custom.fit(mishap.dag,CPT)
+```
+
+
+## model visualization
+
+```{r,fig.height=10, fig.width=12}
+
+graphviz.chart(mishap, type = "barprob", 
+               grid = TRUE, 
+               bar.col = "darkgreen",
+               strip.bg = "lightskyblue",
+               scale = c(3,3),
+               draw.levels = TRUE)
+
+```
+
+## Hightlight the Human Factor Module
+```{r}
+
+hlight <- list(nodes = nodes(mishap.dag), arcs = arcs(mishap.dag),
+               col = "black", textCol = "black")
+pp <- graphviz.plot(mishap.dag, 
+                    highlight = hlight, shape = "ellipse",
+                    layout = "dot",
+                    groups = list(c("WL","QL","RL","TL","OS","PL","GN"),
+                                  c("SA"),
+                                  c("EE","HF","US"),
+                                  c("MS")))
+
+edgeRenderInfo(pp) <- list(
+  col = c("WL~SA" = "darkblue", "QL~SA" = "darkblue",
+  "SA~HF" = "darkblue","RL~HF" = "darkblue", 
+  "TL~HF" = "darkblue","EE~HF" = "darkblue"),
+  lwd = c("WL~SA" = 3, "QL~SA" = 3,
+  "SA~HF" = 3,
+  "RL~HF" = 3, "TL~HF" = 3),
+  lty = c("WL~SA" = "dashed", "QL~SA" = "dashed",
+  "SA~HF" = "dashed", 
+  "RL~HF" ="dashed", "TL~HF" = "dashed"))
+
+nodeRenderInfo(pp) <- list(fill = c("HF" = "#BEBADA",
+                                   "RL" = "#BEBADA",
+                                   "SA" = "#BEBADA",
+                                   "WL" = "#BEBADA",
+                                   "QL" = "#BEBADA"))
+
+renderGraph(pp)
+```
+
+
+## Hightlight the UAV Module
+```{r}
+hlight <- list(nodes = nodes(mishap.dag), arcs = arcs(mishap.dag),
+               col = "black", textCol = "black")
+pp <- graphviz.plot(mishap.dag, 
+                    highlight = hlight, shape = "ellipse",
+                    layout = "dot",
+                    groups = list(c("WL","QL","RL","TL","OS","PL","GN"),
+                                  c("SA"),
+                                  c("EE","HF","US"),
+                                  c("MS")))
+
+edgeRenderInfo(pp) <- list(
+  col = c("TL~US" = "darkblue", "GN~US" = "darkblue",
+  "OS~US" = "darkblue","PL~US" = "darkblue"),
+  lwd = c("TL~US" = 3, "GN~US" = 3,
+  "OS~US" = 3,"PL~US" = 3),
+  lty = c("TL~US" = "dashed", "GN~US" = "dashed",
+  "OS~US" = "dashed","PL~US" = "dashed"))
+
+nodeRenderInfo(pp) <- list(fill = c("PL" = "#8DD3C7",
+                                   "OS" = "#8DD3C7",
+                                   "GN" = "#8DD3C7",
+                                   "TL" = "#8DD3C7",
+                                   "US" = "#8DD3C7"))
+
+renderGraph(pp)
+```
+
+## Hightlight the External Environment Module
+```{r}
+hlight <- list(nodes = nodes(mishap.dag), arcs = arcs(mishap.dag),
+               col = "black", textCol = "black")
+pp <- graphviz.plot(mishap.dag, 
+                    highlight = hlight, shape = "ellipse",
+                    layout = "dot",
+                    groups = list(c("WL","QL","RL","TL","OS","PL","GN"),
+                                  c("SA"),
+                                  c("EE","HF","US"),
+                                  c("MS")))
+
+edgeRenderInfo(pp) <- list(
+  col = c("SA~EE" = "darkblue"),
+  lwd = c("SA~EE" = 3),
+  lty = c("SA~EE" = "dashed"))
+
+nodeRenderInfo(pp) <- list(fill = c("EE" = "#FDB462"))
+
+renderGraph(pp)
+```
+
+
+## Posterior for each single input variable
+
+```{r}
+bn.fit.barchart(mishap$WL, xlab = "Probabilities of Fatigue", 
+                ylab = "Levels", main = "Workload")
+bn.fit.barchart(mishap$QL, xlab = "Probabilities of Inexperience", 
+                ylab = "Levels",  main = "Qualification")
+bn.fit.barchart(mishap$SA, 
+                xlab = "P(SA|WL,QL)", 
+                ylab = " ",
+                main = "Situational Awareness")
+bn.fit.barchart(mishap$EE, xlab = "P(EE|SA)", 
+                ylab = " ",
+                main = "External Environment")
+
+```
+
+## Generate random samples
+
+```{r}
+
+rbn(mishap,n=10)
+write.csv(rbn(mishap,n=20),"random.csv")
+
+```
+
+
+## Compute probabilities with Maximum a Posteriori queries
+
+- Under BVLOS, basic qualification, danger workload  
+good weather
+
+```{r,fig.height=10, fig.width=12}
+
+EE.1 = array(c(0, 1, 0, 1), dim = c(2,2), dimnames = list(EE = EE.lv, SA = SA.lv))
+QL.1 = array(c(1,0,0), dim = 3, dimnames = list(QL = QL.lv))
+WL.1 = array(c(1, 0, 0, 0), dim = 4, dimnames = list(WL = WL.lv))
+RL.1 = array(c(0, 1), dim = 2, dimnames = list(RL = RL.lv))
+
+
+CPT.1 = list( TL = TL.prob, GN = GN.prob,PL = PL.prob, 
+              OS = OS.prob, RL = RL.1, WL = WL.1, 
+              QL = QL.1,SA = SA.prob, US = US.prob,
+              HF = HF.prob, EE = EE.1, MS = MS.prob)
+
+mishap.1 = custom.fit(mishap.dag,CPT.1)
+
+graphviz.chart(mishap.1, type = "barprob", 
+               grid = TRUE, 
+               bar.col = "darkorange1",
+               strip.bg = "lightpink",
+               scale = c(3,3),
+               layout = "dot")
+```
+
+
+

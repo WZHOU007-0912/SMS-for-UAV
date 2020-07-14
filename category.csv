@@ -1,0 +1,9 @@
+﻿category,count
+HF,101
+UAV,17
+EE,1
+HF + EE,28
+HF + UAV,17
+EE + UAV,2
+HF + EE + UAV,3
+NA,1
